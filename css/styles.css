@@ -1,0 +1,46 @@
+
+body{
+    background-color: rgb(100, 205, 237);
+}
+div {
+    background-color: #f1f1f1;
+    margin: 5% 5% 0 5%;
+    padding: 5%;
+    border-radius: 15px;
+    width: 250px;
+    height: 300px;
+    float: left;
+  }
+ p
+ {
+margin: 2%;
+
+ }
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid  rgb(100, 205, 237);
+    border-radius: 15px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 2px;
+    outline-style: none;
+  }
+
+  label
+  {
+      margin-top: 13px;
+  }
+
+  input:focus {
+    border: 2px solid #00ffff ;
+    border-radius: 15px;
+  }
+
+
+  input[type=submit] {
+    background-color: #00ffff;
+    border-radius: 15px;
+  }
+
