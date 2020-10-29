@@ -1,23 +1,23 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
     <title>Persons Page</title>
-
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 
 <body>
     <div class="container">
-        <form id="send" action="http://localhost:3000" method="post">
+        <form id="postData" action="/" method="POST">
             <label for="fname">First Name</label>
             <input type="text" id="fname" name="firstname" placeholder="Your name..">
-            <p id="fnameValid" class="error"></p>
+
 
             <label for="lname">Last Name</label>
             <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-            <p id="lnameValid" class="error"></p>
+
 
             <input type="submit" value="Submit" name="submit">
         </form>
@@ -26,9 +26,44 @@
 
     </div>
     <script>
-        fetch('https://jsonplaceholder.typicode.com/users')
-            // fetch('../src/users.json')
+        
+        document.getElementById("postData").addEventListener("submit", function (event) {
+
+            event.preventDefault();
+            let fname = document.forms["postData"]["fname"].value;
+            let lname = document.forms["postData"]["lname"].value;
+            let person = fname + " " + lname;
+
+            fetch('/src/users.json', {
+                mode: 'cors',
+                credentials: 'include',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(person)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+
+        // show data
+        window.fetch('/src/users.json',
+            {
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
             .then(function (response) {
+
                 return response.json();
             })
             .then(function (data) {
@@ -38,14 +73,13 @@
                 console.log('error: ' + err);
             });
         function appendData(data) {
-            var mainContainer = document.getElementById("showData");
+            var showdata = document.getElementById("showData");
             for (var i = 0; i < data.length; i++) {
                 var p = document.createElement("p");
-                p.innerHTML = 'user ' + (i + 1) + ':  ' + data[i].name;
-                //p.innerHTML = 'user ' + (i + 1) + ':  ' + data[i].fname +' '+ data[i].lname;
-                mainContainer.appendChild(p);
+                p.innerHTML = 'user ' + (i + 1) + ':  ' + data[i].fname + ' ' + data[i].lname;
+                showdata.appendChild(p);
             }
-        }
+        };
     </script>
 </body>
 
